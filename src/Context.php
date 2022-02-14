@@ -2,7 +2,6 @@
 
 namespace Mashbo\Components\ApiBuilder;
 
-use JMS\Serializer\Serializer;
 use Mashbo\Components\ApiBuilder\Responses\ResponseBuilder;
 use Symfony\Component\HttpFoundation\Response;
 
