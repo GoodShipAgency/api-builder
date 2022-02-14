@@ -8,6 +8,12 @@
     }
   },
   "require": {
+    "php": "^8",
+    "jms/serializer": "^3.17",
+    "laminas/laminas-diactoros": "^2.8",
+    "php-http/client-common": "^2.1",
+    "psr/http-message": "^1.0",
+    "woohoolabs/yin": "^4.3"
   },
   "repositories": [
   ]

@@ -5,11 +5,9 @@ namespace Mashbo\Components\ApiBuilder\Standards\JsonApi;
 use Http\Message\ResponseFactory;
 use Mashbo\Components\ApiBuilder\Responses\ResponseBuilder;
 use Psr\Http\Message\ResponseInterface;
-use WoohooLabs\Yin\JsonApi\Document\AbstractDocument;
-use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
-use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
 use WoohooLabs\Yin\JsonApi\JsonApi;
-use Zend\Diactoros\Stream;
+use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractResourceDocument;
+use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument;
 
 class JsonApiResponseBuilderDecorator implements ResponseBuilder
 {
@@ -19,7 +17,7 @@ class JsonApiResponseBuilderDecorator implements ResponseBuilder
     private $jsonApi;
 
     /**
-     * @var AbstractSuccessfulDocument[]
+     * @var AbstractResourceDocument[]
      */
     private $documents = [];
     /**
@@ -33,7 +31,7 @@ class JsonApiResponseBuilderDecorator implements ResponseBuilder
         $this->responseFactory = $responseFactory;
     }
 
-    public function registerDocument($class, AbstractSuccessfulDocument $document)
+    public function registerDocument($class, AbstractResourceDocument $document)
     {
         $this->documents[$class] = $document;
     }
@@ -60,7 +58,7 @@ class JsonApiResponseBuilderDecorator implements ResponseBuilder
         }
 
         if ($data instanceof ErrorDocument) {
-            return $data->getResponse($this->responseFactory->createResponse());
+            return $this->responseFactory->createResponse();
         }
 
         $class = get_class($data);
